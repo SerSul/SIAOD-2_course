@@ -77,6 +77,7 @@ int main() {
             cin >> inp_file;
             inp.open(inp_file, ios::in | ios::binary);
             if (inp.good()) {
+                std::cout << sizeof(Record);
                 cout << "\nВывод содержимого бинарного файла:\n";
                 print_bin(inp);
                 inp.close();
@@ -180,7 +181,7 @@ int main() {
                 if (result != nullptr) {
                     cout << "Найденная запись: " << result->readerTicketNumber << ' ' << result->bookInventoryNumber << ' '
                         << result->dateIssued << ' ' << result->dateReturned << '\n';
-                    delete result; // Освобождаем память после использования
+                    delete result; 
                 }
                 else {
                     cout << "Запись не найдена.\n";

@@ -54,6 +54,10 @@ void createTextFile(const string& fileName) {
     char ch;
 
     while (cin.get(ch)) {
+        if (ch == '0') {
+            // Завершение ввода при вводе 0 и выход из цикла
+            break;
+        }
         if (ch == ' ') {
             file << ' '; // Записываем пробел в файл
         }
@@ -63,10 +67,7 @@ void createTextFile(const string& fileName) {
         if (ch >= '0' && ch <= '9') {
             file << ch; // Записываем цифру в файл
         }
-        if (ch == '0') {
-            // Завершение ввода при вводе 0 и выход из цикла
-            break;
-        }
+        
     }
 
     cout << "Файл '" << fileName << "' создан." << endl;

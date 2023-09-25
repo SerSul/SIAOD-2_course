@@ -9,6 +9,8 @@ struct Record {
 };
 */
 
+// 1 задание: ѕреобразование текстовых данных из txt_file в бинарный формат и запись в bin_file
+
 void txt_to_bin(ifstream& txt_file, ofstream& bin_file) { // 1 задание
     Record tt;
     while (true) {
@@ -22,6 +24,8 @@ void txt_to_bin(ifstream& txt_file, ofstream& bin_file) { // 1 задание
 
 }
 
+// 2 задание: ѕреобразование данных из бинарного файла bin_file в текстовый формат и запись в txt_file
+
 void bin_to_txt(ifstream& bin_file, ofstream& txt_file) { // 2 задание
     //ѕроверка на существование;
     Record tt;
@@ -32,6 +36,8 @@ void bin_to_txt(ifstream& bin_file, ofstream& txt_file) { // 2 задание
         else break;
     }
 }
+
+// 3 задание: ¬ывод данных из бинарного файла bin_file на консоль
 
 void print_bin(ifstream& bin_file) {
     Record tt;
@@ -53,6 +59,9 @@ int line_counter(ifstream& file) {
     return counter;
 }
 
+
+// 4 задание: ѕолучение записи из бинарного файла filename по заданной позиции
+
 Record get_struct(string filename, int position) { // 4 задание
     ifstream bin_file(filename, ios::binary | ios::in);
     Record tt;
@@ -67,6 +76,7 @@ Record get_struct(string filename, int position) { // 4 задание
     return tt;
 }
 
+// 5 задание: ”даление записи с заданным ключом из бинарного файла bin_name
 
 void remove_struct(string bin_name, int key) { // 5 задание
 
@@ -121,12 +131,12 @@ Record* find_record_by_criteria(ifstream& bin_file, int readerTicketNumber, int 
 
     while (bin_file.read((char*)&tt, sizeof(tt))) {
         if (tt.readerTicketNumber == readerTicketNumber && tt.bookInventoryNumber == bookInventoryNumber) {
-            foundRecord = new Record(tt); // ¬ыдел€ем пам€ть и создаем копию найденной записи
+            foundRecord = new Record(tt); // создаем копию найденной записи
             break; // «аканчиваем поиск после нахождени€ первой подход€щей записи
         }
     }
 
-    return foundRecord; // ¬озвращаем указатель на запись или nullptr, если запись не найдена
+    return foundRecord; // возвращаем указатель или nullptr, если не найдена
 }
 
 
