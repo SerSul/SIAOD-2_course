@@ -51,15 +51,29 @@ void createTextFile(const string& fileName) {
     }
 
     cout << "Введите десятичные числа (для завершения ввода введите 0):" << endl;
-    int num;
-    while (cin >> num && num != 0) {
-        file << num << endl;
+    char ch;
+
+    while (cin.get(ch)) {
+        if (ch == ' ') {
+            file << ' '; // Записываем пробел в файл
+        }
+        if (ch == '\n') {
+            file << endl; // Переход на новую строку в файле
+        }
+        if (ch >= '0' && ch <= '9') {
+            file << ch; // Записываем цифру в файл
+        }
+        if (ch == '0') {
+            // Завершение ввода при вводе 0 и выход из цикла
+            break;
+        }
     }
 
     cout << "Файл '" << fileName << "' создан." << endl;
 
     file.close();
 }
+
 
 // Функция для вывода содержимого текстового файла
 void displayTextFile(const string& fileName) {
@@ -185,10 +199,6 @@ int main() {
     int count = -1;
     int choice = -1;
     string newFileName;
-    // Проверка существования файла перед выполнением операций
-
-
-
 
     do {
         ifstream checkFileExistence(fileName);
