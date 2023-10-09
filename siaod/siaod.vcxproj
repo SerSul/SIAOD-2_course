@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="2rab\task2\siaod_2_head.h" />
+    <ClCompile Include="3rab\siaod_3.cpp" />
+    <ClCompile Include="3rab\siaod_3main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2rab\task2\main.cpp" />
-    <ClCompile Include="2rab\task2\siaod_2_2_source.cpp" />
+    <ClInclude Include="3rab\siaod_3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
