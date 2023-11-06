@@ -97,6 +97,20 @@ public:
         (void)rename("temp.bin", fileName.c_str());
     }
 
+    void addRecord(Record newRecord, std::string fileName) {
+        if (static_cast<float>(recordCount) / static_cast<float>(tableSize) >= 0.75)
+            rehash();
+
+        int index = hash(newRecord.readerTicketNumber);
+        table[index].push_back(newRecord);
+        recordCount++;
+
+        std::ofstream outFile(fileName, std::ios::binary | std::ios::app);
+        outFile.write(reinterpret_cast<char*>(&newRecord), sizeof(newRecord));
+        outFile.close();
+    }
+
+
     Record* findRecord(long long index) {
         int hashIndex = hash(index);
         auto& list = table[hashIndex];
@@ -256,6 +270,7 @@ int main() {
         std::cout << "4 - Вывод содержимого файла\n";
         std::cout << "5 - Вывод содержимого таблицы\n";
         std::cout << "6 - Исследование времени чтения из начала, середины и конца файла\n";
+        std::cout << "7 - Вставка узла\n";
 
         std::cout << "0 - Выход из программы\n";
         std::cin >> choice;
@@ -335,6 +350,36 @@ int main() {
             duration = end - start;
             std::cout << "Время чтения записей с конца файла: " << duration.count() << " миллисекунд\n";
         } break;
+
+        case 7: {
+            Record newRecord;
+            std::cout << "Введите данные для новой записи:\n";
+
+            std::cout << "Введите номер читательского билета: ";
+            std::cin >> newRecord.readerTicketNumber;
+            std::cin.ignore();
+
+            std::cout << "Введите инвентарный номер книги: ";
+            std::cin >> newRecord.bookInventoryNumber;
+            std::cin.ignore();
+
+            std::cout << "Введите дату выдачи: ";
+            std::cin >> newRecord.dateIssued;
+            std::cin.ignore();
+
+            std::cout << "Введите дату возврата: ";
+            std::cin >> newRecord.dateReturned;
+            std::cin.ignore();
+
+            auto start = std::chrono::high_resolution_clock::now();
+            hashTable.addRecord(newRecord, fileName);
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double, std::milli> duration = end - start;
+            std::cout << "Время выполнения операции 7: " << duration.count() << " миллисекунд\n";
+        }
+              break;
+
+
         case 0:
             exit(0);
         }
